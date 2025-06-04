@@ -5,7 +5,8 @@
     <meta charset="UTF-8" />
     <title>Fintech App</title>
     <!-- Favicon: Runa vikinga Algiz (ᛉ) -->
-    <link rel="icon" type="image/svg+xml" href='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><circle cx="32" cy="32" r="30" fill="white" stroke="%230A3D62" stroke-width="4"/><path d="M32 48V16" stroke="%230A3D62" stroke-width="5" stroke-linecap="round"/><path d="M32 32L20 20" stroke="%230A3D62" stroke-width="5" stroke-linecap="round"/><path d="M32 32L44 20" stroke="%230A3D62" stroke-width="5" stroke-linecap="round"/></svg>' />
+    <link rel="icon" type="image/svg+xml"
+        href='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><circle cx="32" cy="32" r="30" fill="white" stroke="%230A3D62" stroke-width="4"/><path d="M32 48V16" stroke="%230A3D62" stroke-width="5" stroke-linecap="round"/><path d="M32 32L20 20" stroke="%230A3D62" stroke-width="5" stroke-linecap="round"/><path d="M32 32L44 20" stroke="%230A3D62" stroke-width="5" stroke-linecap="round"/></svg>' />
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -15,14 +16,19 @@
     <header class="header" role="banner">
         <!-- Logo SVG Moderno con aria-label -->
         <div class="logo" aria-label="Logo Fintech" role="img">
-            <!-- Runa vikinga Algiz (ᛉ) igual que favicon -->
-            <svg width="48" height="48" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
-                <circle cx="32" cy="32" r="30" fill="white" stroke="#0A3D62" stroke-width="4"/>
-                <path d="M32 48V16" stroke="#0A3D62" stroke-width="5" stroke-linecap="round"/>
-                <path d="M32 32L20 20" stroke="#0A3D62" stroke-width="5" stroke-linecap="round"/>
-                <path d="M32 32L44 20" stroke="#0A3D62" stroke-width="5" stroke-linecap="round"/>
+            <!-- Runa vikinga Algiz (ᛉ) igual que favicon, símbolo de protección -->
+            <svg width="48" height="48" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true" focusable="false">
+                <!-- Círculo exterior de la runa -->
+                <circle cx="32" cy="32" r="30" fill="white" stroke="#0A3D62" stroke-width="4" />
+                <!-- Tallo central de la runa Algiz -->
+                <path d="M32 48V16" stroke="#0A3D62" stroke-width="5" stroke-linecap="round" />
+                <!-- Ramas laterales de la runa Algiz -->
+                <path d="M32 32L20 20" stroke="#0A3D62" stroke-width="5" stroke-linecap="round" />
+                <path d="M32 32L44 20" stroke="#0A3D62" stroke-width="5" stroke-linecap="round" />
             </svg>
         </div>
+        <!-- Título principal de la aplicación -->
         <h1>Fintech</h1>
     </header>
     <main class="accordion-container" role="main" aria-label="Panel de operaciones financieras">
@@ -30,6 +36,7 @@
         <details open>
             <summary><i class="fas fa-user-plus" aria-hidden="true"></i> Registro de Cliente y Cuenta</summary>
             <section id="registro" class="card" aria-label="Formulario de registro de cliente y cuenta">
+                <!-- Campos de registro de cliente y cuenta -->
                 <input type="text" id="nombre" placeholder="Nombre" aria-required="true" autocomplete="given-name" />
                 <input type="text" id="apellido" placeholder="Apellido" aria-required="true"
                     autocomplete="family-name" />
@@ -42,6 +49,7 @@
                     autocomplete="off" />
                 <input type="number" id="saldoInicial" placeholder="Saldo Inicial" aria-required="true" min="0"
                     step="0.01" />
+                <!-- Botón para registrar cliente y cuenta -->
                 <button type="button" onclick="registrarCliente()" aria-label="Registrar cliente y cuenta">
                     <i class="fas fa-user-plus" aria-hidden="true"></i> Registrar
                 </button>
@@ -51,8 +59,10 @@
         <details>
             <summary><i class="fas fa-wallet" aria-hidden="true"></i> Consultar Saldo</summary>
             <section id="saldo" class="card" aria-label="Formulario para consultar saldo de cuenta">
+                <!-- Campo para ingresar el código de cuenta -->
                 <input type="text" id="codigoSaldo" placeholder="Código de Cuenta" aria-required="true"
                     autocomplete="off" />
+                <!-- Botón para consultar saldo -->
                 <button type="button" onclick="consultarSaldo()" aria-label="Consultar saldo">
                     <i class="fas fa-search-dollar" aria-hidden="true"></i> Consultar Saldo
                 </button>
@@ -62,6 +72,7 @@
         <details>
             <summary><i class="fas fa-exchange-alt" aria-hidden="true"></i> Registrar Movimiento</summary>
             <section id="movimiento" class="card" aria-label="Formulario para registrar movimiento en cuenta">
+                <!-- Campos para registrar un movimiento -->
                 <input type="text" id="codigoMovimiento" placeholder="Código de Cuenta" aria-required="true"
                     autocomplete="off" />
                 <label for="tipoMovimiento" class="sr-only">Tipo de Movimiento</label>
@@ -71,6 +82,7 @@
                 </select>
                 <input type="number" id="montoMovimiento" placeholder="Monto" aria-required="true" min="0.01"
                     step="0.01" />
+                <!-- Botón para registrar movimiento -->
                 <button type="button" onclick="registrarMovimiento()" aria-label="Registrar movimiento">
                     <i class="fas fa-arrow-right-arrow-left" aria-hidden="true"></i> Registrar Movimiento
                 </button>
@@ -80,6 +92,7 @@
         <details>
             <summary><i class="fas fa-user-edit" aria-hidden="true"></i> Modificar Cliente</summary>
             <section id="modificar" class="card" aria-label="Formulario para modificar datos del cliente">
+                <!-- Campos para modificar datos del cliente -->
                 <input type="email" id="emailModificar" placeholder="Email del Cliente" aria-required="true"
                     autocomplete="email" />
                 <input type="text" id="nombreModificar" placeholder="Nuevo Nombre" autocomplete="given-name" />
@@ -88,6 +101,7 @@
                     title="Solo números" />
                 <input type="password" id="passwordModificar" placeholder="Nueva Password"
                     autocomplete="new-password" />
+                <!-- Botón para modificar cliente -->
                 <button type="button" onclick="modificarCliente()" aria-label="Modificar cliente">
                     <i class="fas fa-pen" aria-hidden="true"></i> Modificar
                 </button>
@@ -97,8 +111,10 @@
         <details>
             <summary><i class="fas fa-user-minus" aria-hidden="true"></i> Eliminar Cliente</summary>
             <section id="eliminar" class="card" aria-label="Formulario para eliminar cliente">
+                <!-- Campo para ingresar el email del cliente a eliminar -->
                 <input type="email" id="emailEliminar" placeholder="Email del Cliente" aria-required="true"
                     autocomplete="email" />
+                <!-- Botón para eliminar cliente -->
                 <button type="button" onclick="eliminarCliente()" aria-label="Eliminar cliente">
                     <i class="fas fa-trash-alt" aria-hidden="true"></i> Eliminar
                 </button>
@@ -106,10 +122,18 @@
         </details>
         <!-- Resultado -->
         <section id="resultado" class="card resultado-card" aria-live="polite" aria-atomic="true">
+            <!-- Título de la sección de resultados -->
             <h2><i class="fas fa-info-circle" aria-hidden="true"></i> Resultado</h2>
+            <!-- Área donde se muestran los mensajes de feedback al usuario -->
             <div id="output" tabindex="0"></div>
+            <!-- Botón para ver historial blockchain de una cuenta -->
+            <button type="button" onclick="mostrarHistorialBlockchain()" aria-label="Ver historial blockchain"
+                style="margin-top:18px;">
+                <i class="fas fa-link" aria-hidden="true"></i> Ver historial Blockchain
+            </button>
         </section>
     </main>
+    <!-- Script principal de la interfaz -->
     <script src="ui.js" defer></script>
 </body>
 

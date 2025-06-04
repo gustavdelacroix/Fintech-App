@@ -166,8 +166,17 @@ function eliminarCliente() {
     }
 }
 
-// Registrar movimiento (depósito/retiro)
-function registrarMovimiento() {
+// Función para calcular hash SHA-256 de un movimiento (simulación blockchain)
+async function calcularHashMovimiento(movimiento) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(JSON.stringify(movimiento));
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+// Modificar métodos de depósito y retiro para incluir hash blockchain
+async function registrarMovimiento() {
     const codigo = document.getElementById("codigoMovimiento").value.trim();
     const tipo = document.getElementById("tipoMovimiento").value;
     const monto = parseFloat(document.getElementById("montoMovimiento").value);
@@ -181,44 +190,50 @@ function registrarMovimiento() {
         mostrarResultado("Cuenta no encontrada.", "error");
         return;
     }
+    const movimiento = {
+        tipo,
+        monto,
+        fecha: new Date().toISOString(),
+        cuenta: codigo
+    };
+    movimiento.hash = await calcularHashMovimiento(movimiento);
     if (tipo === "depósito") {
-        sistema.depositarEnCuenta(codigo, monto);
-        mostrarResultado(`Depósito de $${monto} realizado en cuenta ${codigo}.`);
+        cuenta.depositar(monto);
+        cuenta.movimientos[cuenta.movimientos.length - 1].hash = movimiento.hash;
+        mostrarResultado(`Depósito de $${monto} realizado en cuenta ${codigo}.<br><small>Hash Blockchain: <code>${movimiento.hash}</code></small>`);
     } else if (tipo === "retiro") {
         if (monto > cuenta.obtenerSaldo()) {
             mostrarResultado("Fondos insuficientes para realizar el retiro.", "error");
             return;
         }
-        sistema.retirarDeCuenta(codigo, monto);
-        mostrarResultado(`Retiro de $${monto} realizado en cuenta ${codigo}.`);
+        cuenta.retirar(monto);
+        cuenta.movimientos[cuenta.movimientos.length - 1].hash = movimiento.hash;
+        mostrarResultado(`Retiro de $${monto} realizado en cuenta ${codigo}.<br><small>Hash Blockchain: <code>${movimiento.hash}</code></small>`);
     } else {
         mostrarResultado("Tipo de movimiento inválido.", "error");
     }
+    guardarSistema();
 }
 
-// Consultar saldo
-function consultarSaldo() {
-    const codigo = document.getElementById("codigoSaldo").value.trim();
-    if (!codigo) {
-        mostrarResultado("Debe ingresar el código de la cuenta para consultar saldo.", "error");
+// Mostrar historial de movimientos con hash blockchain
+async function mostrarHistorialBlockchain() {
+    const codigo = prompt("Ingrese el código de cuenta para ver el historial blockchain:");
+    if (!codigo) return;
+    const cuenta = sistema.buscarCuentaPorCodigo(codigo.trim());
+    if (!cuenta) {
+        mostrarResultado("Cuenta no encontrada.", "error");
         return;
     }
-    const saldo = sistema.consultarSaldo(codigo);
-    if (saldo !== null) {
-        mostrarResultado(`Saldo actual en cuenta ${codigo}: $${saldo}`);
-    } else {
-        mostrarResultado("Cuenta no encontrada.", "error");
+    if (!cuenta.movimientos.length) {
+        mostrarResultado("No hay movimientos registrados para esta cuenta.");
+        return;
     }
-}
-
-// NUEVO: Funciones para mostrar en pantalla
-function mostrarTodosLosClientes() {
-    const info = sistema.mostrarClientes();
-    mostrarResultado(info ? info : "No hay clientes registrados.");
-}
-function mostrarTodasLasCuentas() {
-    const info = sistema.mostrarCuentas();
-    mostrarResultado(info ? info : "No hay cuentas registradas.");
+    let html = `<b>Historial Blockchain de la cuenta ${codigo}:</b><ul style='margin-top:10px;'>`;
+    for (const mov of cuenta.movimientos) {
+        html += `<li>${mov.tipo} $${mov.monto} - ${new Date(mov.fecha).toLocaleString()}<br><small>Hash: <code>${mov.hash || 'N/A'}</code></small></li>`;
+    }
+    html += '</ul>';
+    mostrarResultado(html);
 }
 
 // Guardar y cargar datos automáticamente en localStorage (incluyendo movimientos)
