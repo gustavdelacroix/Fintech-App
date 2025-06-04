@@ -1,0 +1,32 @@
+DIAGRAMA DE CLASES - SISTEMA FINTECH
+
+Cliente
+---------
+- id: string
+- nombre: string
+- apellido: string
+- dni: string
+- email: string
+- password: string
+
+Cuenta
+---------
+- codigo: string
+- saldoInicial: number
+- cliente: Cliente
+
+Movimiento
+---------
+- tipo: string ('deposito' | 'retiro')
+- monto: number
+- fecha: Date
+
+SistemaFintech
+---------
+- clientes: Array<Cliente>
+- cuentas: Array<Cuenta>
+- movimientos: Array<Movimiento>
++ crearCliente()
++ crearCuenta()
++ realizarMovimiento()
++ consultarSaldo()

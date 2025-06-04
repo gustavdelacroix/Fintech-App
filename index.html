@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Fintech App</title>
+    <!-- Favicon: Runa vikinga Algiz (ᛉ) -->
+    <link rel="icon" type="image/svg+xml" href='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><circle cx="32" cy="32" r="30" fill="white" stroke="%230A3D62" stroke-width="4"/><path d="M32 48V16" stroke="%230A3D62" stroke-width="5" stroke-linecap="round"/><path d="M32 32L20 20" stroke="%230A3D62" stroke-width="5" stroke-linecap="round"/><path d="M32 32L44 20" stroke="%230A3D62" stroke-width="5" stroke-linecap="round"/></svg>' />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <header class="header" role="banner">
+        <!-- Logo SVG Moderno con aria-label -->
+        <div class="logo" aria-label="Logo Fintech" role="img">
+            <!-- Runa vikinga Algiz (ᛉ) igual que favicon -->
+            <svg width="48" height="48" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+                <circle cx="32" cy="32" r="30" fill="white" stroke="#0A3D62" stroke-width="4"/>
+                <path d="M32 48V16" stroke="#0A3D62" stroke-width="5" stroke-linecap="round"/>
+                <path d="M32 32L20 20" stroke="#0A3D62" stroke-width="5" stroke-linecap="round"/>
+                <path d="M32 32L44 20" stroke="#0A3D62" stroke-width="5" stroke-linecap="round"/>
+            </svg>
+        </div>
+        <h1>Fintech</h1>
+    </header>
+    <main class="accordion-container" role="main" aria-label="Panel de operaciones financieras">
+        <!-- Registro de Cliente y Cuenta (unificado) -->
+        <details open>
+            <summary><i class="fas fa-user-plus" aria-hidden="true"></i> Registro de Cliente y Cuenta</summary>
+            <section id="registro" class="card" aria-label="Formulario de registro de cliente y cuenta">
+                <input type="text" id="nombre" placeholder="Nombre" aria-required="true" autocomplete="given-name" />
+                <input type="text" id="apellido" placeholder="Apellido" aria-required="true"
+                    autocomplete="family-name" />
+                <input type="text" id="dni" placeholder="DNI" aria-required="true" inputmode="numeric" pattern="[0-9]+"
+                    title="Solo números" />
+                <input type="email" id="email" placeholder="Email" aria-required="true" autocomplete="email" />
+                <input type="password" id="password" placeholder="Password" aria-required="true"
+                    autocomplete="new-password" />
+                <input type="text" id="codigoCuenta" placeholder="Código de Cuenta" aria-required="true"
+                    autocomplete="off" />
+                <input type="number" id="saldoInicial" placeholder="Saldo Inicial" aria-required="true" min="0"
+                    step="0.01" />
+                <button type="button" onclick="registrarCliente()" aria-label="Registrar cliente y cuenta">
+                    <i class="fas fa-user-plus" aria-hidden="true"></i> Registrar
+                </button>
+            </section>
+        </details>
+        <!-- Consultar Saldo -->
+        <details>
+            <summary><i class="fas fa-wallet" aria-hidden="true"></i> Consultar Saldo</summary>
+            <section id="saldo" class="card" aria-label="Formulario para consultar saldo de cuenta">
+                <input type="text" id="codigoSaldo" placeholder="Código de Cuenta" aria-required="true"
+                    autocomplete="off" />
+                <button type="button" onclick="consultarSaldo()" aria-label="Consultar saldo">
+                    <i class="fas fa-search-dollar" aria-hidden="true"></i> Consultar Saldo
+                </button>
+            </section>
+        </details>
+        <!-- Registrar Movimiento -->
+        <details>
+            <summary><i class="fas fa-exchange-alt" aria-hidden="true"></i> Registrar Movimiento</summary>
+            <section id="movimiento" class="card" aria-label="Formulario para registrar movimiento en cuenta">
+                <input type="text" id="codigoMovimiento" placeholder="Código de Cuenta" aria-required="true"
+                    autocomplete="off" />
+                <label for="tipoMovimiento" class="sr-only">Tipo de Movimiento</label>
+                <select id="tipoMovimiento" aria-required="true">
+                    <option value="depósito">Depósito</option>
+                    <option value="retiro">Retiro</option>
+                </select>
+                <input type="number" id="montoMovimiento" placeholder="Monto" aria-required="true" min="0.01"
+                    step="0.01" />
+                <button type="button" onclick="registrarMovimiento()" aria-label="Registrar movimiento">
+                    <i class="fas fa-arrow-right-arrow-left" aria-hidden="true"></i> Registrar Movimiento
+                </button>
+            </section>
+        </details>
+        <!-- Modificar Cliente -->
+        <details>
+            <summary><i class="fas fa-user-edit" aria-hidden="true"></i> Modificar Cliente</summary>
+            <section id="modificar" class="card" aria-label="Formulario para modificar datos del cliente">
+                <input type="email" id="emailModificar" placeholder="Email del Cliente" aria-required="true"
+                    autocomplete="email" />
+                <input type="text" id="nombreModificar" placeholder="Nuevo Nombre" autocomplete="given-name" />
+                <input type="text" id="apellidoModificar" placeholder="Nuevo Apellido" autocomplete="family-name" />
+                <input type="text" id="dniModificar" placeholder="Nuevo DNI" inputmode="numeric" pattern="[0-9]+"
+                    title="Solo números" />
+                <input type="password" id="passwordModificar" placeholder="Nueva Password"
+                    autocomplete="new-password" />
+                <button type="button" onclick="modificarCliente()" aria-label="Modificar cliente">
+                    <i class="fas fa-pen" aria-hidden="true"></i> Modificar
+                </button>
+            </section>
+        </details>
+        <!-- Eliminar Cliente -->
+        <details>
+            <summary><i class="fas fa-user-minus" aria-hidden="true"></i> Eliminar Cliente</summary>
+            <section id="eliminar" class="card" aria-label="Formulario para eliminar cliente">
+                <input type="email" id="emailEliminar" placeholder="Email del Cliente" aria-required="true"
+                    autocomplete="email" />
+                <button type="button" onclick="eliminarCliente()" aria-label="Eliminar cliente">
+                    <i class="fas fa-trash-alt" aria-hidden="true"></i> Eliminar
+                </button>
+            </section>
+        </details>
+        <!-- Resultado -->
+        <section id="resultado" class="card resultado-card" aria-live="polite" aria-atomic="true">
+            <h2><i class="fas fa-info-circle" aria-hidden="true"></i> Resultado</h2>
+            <div id="output" tabindex="0"></div>
+        </section>
+    </main>
+    <script src="ui.js" defer></script>
+</body>
+
+</html>
