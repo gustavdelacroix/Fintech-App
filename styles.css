@@ -48,7 +48,7 @@ body {
     align-items: center;
     /* Fondo con imagen nueva y gradiente oscuro para contraste */
     background: linear-gradient(135deg, rgba(10, 22, 38, 0.92) 0%, rgba(26, 42, 79, 0.82) 100%),
-        url('https://i.pinimg.com/736x/8c/35/99/8c3599bafb0fec8b8e9333711a70d69e.jpg') center/cover no-repeat;
+        url('https://i.pinimg.com/originals/8c/35/99/8c3599bafb0fec8b8e9333711a70d69e.jpg') center/cover no-repeat;
     background-blend-mode: overlay;
     position: relative;
     overflow-x: hidden;
@@ -82,7 +82,7 @@ body {
 body {
     font-family: 'Poppins', 'Inter', 'Roboto', Arial, sans-serif;
     background: linear-gradient(135deg, rgba(10, 22, 38, 0.92) 0%, rgba(26, 42, 79, 0.82) 100%),
-        url('https://i.pinimg.com/736x/8c/35/99/8c3599bafb0fec8b8e9333711a70d69e.jpg') center/cover no-repeat;
+        url('https://i.pinimg.com/originals/8c/35/99/8c3599bafb0fec8b8e9333711a70d69e.jpg') center/cover no-repeat;
     background-blend-mode: overlay;
     color: var(--color-text);
     min-height: 100vh;
