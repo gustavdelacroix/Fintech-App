@@ -1,0 +1,18 @@
+{
+  "name": "trabajo-integrador",
+  "version": "1.0.0",
+  "description": "Este proyecto corresponde al trabajo integrador del curso **\"Introducción al Paradigma de Objetos\"** dictado por EducaciónIT.",
+  "main": "app.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}

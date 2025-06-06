@@ -32,11 +32,10 @@
         <h1>Fintech</h1>
     </header>
     <main class="accordion-container" role="main" aria-label="Panel de operaciones financieras">
-        <!-- Registro de Cliente y Cuenta (unificado) -->
+        <!-- Creá tu perfil (Registro de Cliente y Cuenta) -->
         <details open>
-            <summary><i class="fas fa-user-plus" aria-hidden="true"></i> Registro de Cliente y Cuenta</summary>
+            <summary><i class="fas fa-user-plus" aria-hidden="true"></i> Creá tu perfil</summary>
             <section id="registro" class="card" aria-label="Formulario de registro de cliente y cuenta">
-                <!-- Campos de registro de cliente y cuenta -->
                 <input type="text" id="nombre" placeholder="Nombre" aria-required="true" autocomplete="given-name" />
                 <input type="text" id="apellido" placeholder="Apellido" aria-required="true"
                     autocomplete="family-name" />
@@ -49,89 +48,91 @@
                     autocomplete="off" />
                 <input type="number" id="saldoInicial" placeholder="Saldo Inicial" aria-required="true" min="0"
                     step="0.01" />
-                <!-- Botón para registrar cliente y cuenta -->
                 <button type="button" onclick="registrarCliente()" aria-label="Registrar cliente y cuenta">
                     <i class="fas fa-user-plus" aria-hidden="true"></i> Registrar
                 </button>
             </section>
         </details>
-        <!-- Consultar Saldo -->
+        <!-- Cliente (Modificar y Eliminar Cliente como desplegables) -->
         <details>
-            <summary><i class="fas fa-wallet" aria-hidden="true"></i> Consultar Saldo</summary>
-            <section id="saldo" class="card" aria-label="Formulario para consultar saldo de cuenta">
-                <!-- Campo para ingresar el código de cuenta -->
-                <input type="text" id="codigoSaldo" placeholder="Código de Cuenta" aria-required="true"
-                    autocomplete="off" />
-                <!-- Botón para consultar saldo -->
-                <button type="button" onclick="consultarSaldo()" aria-label="Consultar saldo">
-                    <i class="fas fa-search-dollar" aria-hidden="true"></i> Consultar Saldo
-                </button>
+            <summary><i class="fas fa-user-cog" aria-hidden="true"></i> Cliente</summary>
+            <section id="cliente" class="card" aria-label="Opciones de cliente">
+                <details>
+                    <summary><i class="fas fa-user-edit" aria-hidden="true"></i> Modificar Cliente</summary>
+                    <div style="margin-top:12px;">
+                        <input type="email" id="emailModificar" placeholder="Email del Cliente" aria-required="true"
+                            autocomplete="email" />
+                        <input type="text" id="nombreModificar" placeholder="Nuevo Nombre" autocomplete="given-name" />
+                        <input type="text" id="apellidoModificar" placeholder="Nuevo Apellido"
+                            autocomplete="family-name" />
+                        <input type="text" id="dniModificar" placeholder="Nuevo DNI" inputmode="numeric"
+                            pattern="[0-9]+" title="Solo números" />
+                        <input type="password" id="passwordModificar" placeholder="Nueva Password"
+                            autocomplete="new-password" />
+                        <button type="button" onclick="modificarCliente()" aria-label="Modificar cliente">
+                            <i class="fas fa-pen" aria-hidden="true"></i> Modificar
+                        </button>
+                    </div>
+                </details>
+                <details style="margin-top:18px;">
+                    <summary><i class="fas fa-user-minus" aria-hidden="true"></i> Eliminar Cliente</summary>
+                    <div style="margin-top:12px;">
+                        <input type="email" id="emailEliminar" placeholder="Email del Cliente" aria-required="true"
+                            autocomplete="email" />
+                        <button type="button" onclick="eliminarCliente()" aria-label="Eliminar cliente">
+                            <i class="fas fa-trash-alt" aria-hidden="true"></i> Eliminar
+                        </button>
+                    </div>
+                </details>
             </section>
         </details>
-        <!-- Registrar Movimiento -->
+        <!-- Cuenta Cliente (Registrar Movimiento y Consultar Saldo como desplegables) -->
         <details>
-            <summary><i class="fas fa-exchange-alt" aria-hidden="true"></i> Registrar Movimiento</summary>
-            <section id="movimiento" class="card" aria-label="Formulario para registrar movimiento en cuenta">
-                <!-- Campos para registrar un movimiento -->
-                <input type="text" id="codigoMovimiento" placeholder="Código de Cuenta" aria-required="true"
-                    autocomplete="off" />
-                <label for="tipoMovimiento" class="sr-only">Tipo de Movimiento</label>
-                <select id="tipoMovimiento" aria-required="true">
-                    <option value="depósito">Depósito</option>
-                    <option value="retiro">Retiro</option>
-                </select>
-                <input type="number" id="montoMovimiento" placeholder="Monto" aria-required="true" min="0.01"
-                    step="0.01" />
-                <!-- Botón para registrar movimiento -->
-                <button type="button" onclick="registrarMovimiento()" aria-label="Registrar movimiento">
-                    <i class="fas fa-arrow-right-arrow-left" aria-hidden="true"></i> Registrar Movimiento
-                </button>
-            </section>
-        </details>
-        <!-- Modificar Cliente -->
-        <details>
-            <summary><i class="fas fa-user-edit" aria-hidden="true"></i> Modificar Cliente</summary>
-            <section id="modificar" class="card" aria-label="Formulario para modificar datos del cliente">
-                <!-- Campos para modificar datos del cliente -->
-                <input type="email" id="emailModificar" placeholder="Email del Cliente" aria-required="true"
-                    autocomplete="email" />
-                <input type="text" id="nombreModificar" placeholder="Nuevo Nombre" autocomplete="given-name" />
-                <input type="text" id="apellidoModificar" placeholder="Nuevo Apellido" autocomplete="family-name" />
-                <input type="text" id="dniModificar" placeholder="Nuevo DNI" inputmode="numeric" pattern="[0-9]+"
-                    title="Solo números" />
-                <input type="password" id="passwordModificar" placeholder="Nueva Password"
-                    autocomplete="new-password" />
-                <!-- Botón para modificar cliente -->
-                <button type="button" onclick="modificarCliente()" aria-label="Modificar cliente">
-                    <i class="fas fa-pen" aria-hidden="true"></i> Modificar
-                </button>
-            </section>
-        </details>
-        <!-- Eliminar Cliente -->
-        <details>
-            <summary><i class="fas fa-user-minus" aria-hidden="true"></i> Eliminar Cliente</summary>
-            <section id="eliminar" class="card" aria-label="Formulario para eliminar cliente">
-                <!-- Campo para ingresar el email del cliente a eliminar -->
-                <input type="email" id="emailEliminar" placeholder="Email del Cliente" aria-required="true"
-                    autocomplete="email" />
-                <!-- Botón para eliminar cliente -->
-                <button type="button" onclick="eliminarCliente()" aria-label="Eliminar cliente">
-                    <i class="fas fa-trash-alt" aria-hidden="true"></i> Eliminar
-                </button>
+            <summary><i class="fas fa-wallet" aria-hidden="true"></i> Cuenta Cliente</summary>
+            <section id="cuenta-cliente" class="card" aria-label="Opciones de cuenta cliente">
+                <details open>
+                    <summary><i class="fas fa-exchange-alt" aria-hidden="true"></i> Registrar Movimiento</summary>
+                    <div style="margin-top:12px;">
+                        <input type="text" id="codigoMovimiento" placeholder="Código de Cuenta" aria-required="true"
+                            autocomplete="off" />
+                        <label for="tipoMovimiento" class="sr-only">Tipo de Movimiento</label>
+                        <select id="tipoMovimiento" aria-required="true">
+                            <option value="depósito">Depósito</option>
+                            <option value="retiro">Retiro</option>
+                        </select>
+                        <input type="number" id="montoMovimiento" placeholder="Monto" aria-required="true" min="0.01"
+                            step="0.01" />
+                        <button type="button" onclick="registrarMovimiento()" aria-label="Registrar movimiento">
+                            <i class="fas fa-arrow-right-arrow-left" aria-hidden="true"></i> Registrar Movimiento
+                        </button>
+                    </div>
+                </details>
+                <details style="margin-top:18px;">
+                    <summary><i class="fas fa-search-dollar" aria-hidden="true"></i> Consultar Saldo</summary>
+                    <div style="margin-top:12px;">
+                        <input type="text" id="codigoSaldo" placeholder="Código de Cuenta" aria-required="true"
+                            autocomplete="off" />
+                        <button type="button" onclick="consultarSaldo()" aria-label="Consultar saldo">
+                            <i class="fas fa-search-dollar" aria-hidden="true"></i> Consultar Saldo
+                        </button>
+                        <button type="button" onclick="mostrarHistorialMovimientosSaldo()"
+                            aria-label="Ver historial de movimientos" style="margin-left:10px;">
+                            <i class="fas fa-list" aria-hidden="true"></i> Ver Historial de Movimientos
+                        </button>
+                        <div id="resultadoSaldo" style="margin-top:18px;"></div>
+                    </div>
+                </details>
             </section>
         </details>
         <!-- Resultado -->
         <section id="resultado" class="card resultado-card" aria-live="polite" aria-atomic="true">
-            <!-- Título de la sección de resultados -->
-            <h2><i class="fas fa-info-circle" aria-hidden="true"></i> Resultado</h2>
-            <!-- Área donde se muestran los mensajes de feedback al usuario -->
             <div id="output" tabindex="0"></div>
-            <!-- Botón para ver historial blockchain de una cuenta -->
-            <button type="button" onclick="mostrarHistorialBlockchain()" aria-label="Ver historial blockchain"
-                style="margin-top:18px;">
-                <i class="fas fa-link" aria-hidden="true"></i> Ver historial Blockchain
-            </button>
         </section>
+        <!-- Botón blockchain flotante abajo a la derecha -->
+        <button id="blockchain-btn" type="button" onclick="mostrarHistorialBlockchain()"
+            aria-label="Ver historial blockchain">
+            <i class="fas fa-link" aria-hidden="true"></i> Blockchain
+        </button>
     </main>
     <!-- Script principal de la interfaz -->
     <script src="ui.js" defer></script>

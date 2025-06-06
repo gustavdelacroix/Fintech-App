@@ -84,7 +84,7 @@ const sistema = {
 function mostrarResultado(mensaje, tipo = "exito") {
     const resultadoDiv = document.getElementById("output");
     if (resultadoDiv) {
-        resultadoDiv.textContent = mensaje;
+        resultadoDiv.innerHTML = mensaje;
         resultadoDiv.classList.remove("mensaje-exito", "mensaje-error");
         if (tipo === "error") {
             resultadoDiv.classList.add("mensaje-error");
@@ -94,6 +94,47 @@ function mostrarResultado(mensaje, tipo = "exito") {
     } else {
         alert(mensaje);
     }
+}
+
+// Consultar saldo y mostrar en pantalla
+function consultarSaldo() {
+    const codigo = document.getElementById("codigoSaldo").value.trim();
+    const resultadoDiv = document.getElementById("resultadoSaldo");
+    if (!codigo) {
+        if (resultadoDiv) resultadoDiv.innerHTML = "<span style='color:#b03a2e'>Debe ingresar el código de la cuenta para consultar saldo.</span>";
+        return;
+    }
+    const saldo = sistema.consultarSaldo(codigo);
+    if (saldo !== null) {
+        if (resultadoDiv) resultadoDiv.innerHTML = `<b>Saldo actual en cuenta ${codigo}:</b> $${saldo}`;
+    } else {
+        if (resultadoDiv) resultadoDiv.innerHTML = "<span style='color:#b03a2e'>Cuenta no encontrada.</span>";
+    }
+}
+
+// Mostrar historial de movimientos de la cuenta desde el bloque de saldo
+function mostrarHistorialMovimientosSaldo() {
+    const codigo = document.getElementById("codigoSaldo").value.trim();
+    const resultadoDiv = document.getElementById("resultadoSaldo");
+    if (!codigo) {
+        if (resultadoDiv) resultadoDiv.innerHTML = "<span style='color:#b03a2e'>Debe ingresar el código de la cuenta para ver el historial.</span>";
+        return;
+    }
+    const cuenta = sistema.buscarCuentaPorCodigo(codigo);
+    if (!cuenta) {
+        if (resultadoDiv) resultadoDiv.innerHTML = "<span style='color:#b03a2e'>Cuenta no encontrada.</span>";
+        return;
+    }
+    if (!cuenta.movimientos.length) {
+        if (resultadoDiv) resultadoDiv.innerHTML = `<b>Saldo actual en cuenta ${codigo}:</b> $${cuenta.saldo}<br><i>No hay movimientos registrados para esta cuenta.</i>`;
+        return;
+    }
+    let html = `<b>Saldo actual en cuenta ${codigo}:</b> $${cuenta.saldo}<br><b>Historial de movimientos:</b><ul style='margin-top:10px;'>`;
+    for (const mov of cuenta.movimientos) {
+        html += `<li>${mov.tipo} $${mov.monto} - ${new Date(mov.fecha).toLocaleString()}${mov.hash ? `<br><small>Hash: <code>${mov.hash}</code></small>` : ''}</li>`;
+    }
+    html += '</ul>';
+    if (resultadoDiv) resultadoDiv.innerHTML = html;
 }
 
 // Unificar registro de cliente y cuenta en la UI
