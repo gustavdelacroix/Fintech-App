@@ -31,31 +31,35 @@ class Cliente {
 
     // Métodos funcionales
     abrirCuenta(cuenta) {
-        this.#cuentas.push(cuenta);
+        if (!this.#cuentas.includes(cuenta)) {
+            this.#cuentas.push(cuenta);
+        }
     }
 
-    cerrarCuenta(numeroCuenta) {
-        this.#cuentas = this.#cuentas.filter(c => c.numero !== numeroCuenta);
+    cerrarCuenta(cuenta) {
+        // Permite cerrar por objeto o número
+        const numero = typeof cuenta === 'string' ? cuenta : cuenta.numero;
+        this.#cuentas = this.#cuentas.filter(c => c.numero !== numero);
     }
 
     obtenerSaldoTotal() {
-        return this.#cuentas.reduce((total, cuenta) => total + cuenta.saldo, 0);
+        return this.#cuentas.reduce((total, cuenta) => total + (typeof cuenta.obtenerSaldo === 'function' ? cuenta.obtenerSaldo() : cuenta.saldo), 0);
     }
 
-    transferirA(destinatario, numeroCuentaOrigen, numeroCuentaDestino, monto) {
-        const cuentaOrigen = this.#cuentas.find(c => c.numero === numeroCuentaOrigen);
-        const cuentaDestino = destinatario.cuentas.find(c => c.numero === numeroCuentaDestino);
-
+    transferirA(destinatario, monto, numeroCuentaOrigen = null, numeroCuentaDestino = null) {
+        // Si se pasan cuentas, busca por número, si no, usa la única cuenta
+        let cuentaOrigen = this.#cuentas[0];
+        let cuentaDestino = destinatario.cuentas[0];
+        if (numeroCuentaOrigen) {
+            cuentaOrigen = this.#cuentas.find(c => c.numero === numeroCuentaOrigen);
+        }
+        if (numeroCuentaDestino) {
+            cuentaDestino = destinatario.cuentas.find(c => c.numero === numeroCuentaDestino);
+        }
         if (!cuentaOrigen || !cuentaDestino) {
             throw new Error("Cuenta origen o destino no encontrada.");
         }
-
-        if (cuentaOrigen.saldo < monto) {
-            throw new Error("Fondos insuficientes.");
-        }
-
-        cuentaOrigen.saldo -= monto;
-        cuentaDestino.saldo += monto;
+        cuentaOrigen.transferirA(cuentaDestino, monto);
     }
 }
 
